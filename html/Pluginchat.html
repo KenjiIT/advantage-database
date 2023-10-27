@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Chat Plugin</title>
+    <style>
+        /* Thêm CSS để tùy chỉnh hộp chat */
+        #chat-box {
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            width: 300px;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
+        #chat-messages {
+            height: 250px;
+            overflow-y: scroll;
+        }
+    </style>
+</head>
+<body>
+    <!-- Nút để mở hộp chat -->
+    <button id="open-chat">Mở Chat</button>
+
+    <!-- Hộp chat -->
+    <div id="chat-box" style="display: none;">
+        <h3>Chat</h3>
+        <div id="chat-messages"></div>
+        <input type="text" id="message-input" placeholder="Nhập tin nhắn">
+        <button id="send-button">Gửi</button>
+    </div>
+
+    <script>
+        // Bắt đầu chat
+        document.getElementById("open-chat").addEventListener("click", function() {
+            document.getElementById("chat-box").style.display = "block";
+        });
+
+        // Gửi tin nhắn
+        document.getElementById("send-button").addEventListener("click", function() {
+            var messageInput = document.getElementById("message-input");
+            var message = messageInput.value;
+            if (message.trim() !== "") {
+                var chatMessages = document.getElementById("chat-messages");
+                chatMessages.innerHTML += "<p>You: " + message + "</p>";
+                messageInput.value = "";
+            }
+        });
+    </script>
+</body>
+</html>

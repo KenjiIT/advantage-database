@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>HUTECH</title>
+    <link rel="stylesheet" href="/css/GuestStatus.css">
+    <link rel="stylesheet" href="bootstrap-5.0.2-examples">
+</head>
+<body>
+    <div class="textfield">
+        <h2 id="hello">Mình có thể giúp gì cho bạn?</h2>
+        <ul>
+            <li class="question">Học phí ngành Công Nghệ Thông Tin</li>
+            <li class="question">Ngành Quản trị kinh doanh có bao nhiêu tín chỉ?</li>
+            <li class="question">Nên học chương trình đào tạo nào?</li>
+        </ul>
+    <div id="cuschat"></div>
+    </div>
+    <div class="chat">
+        <input id="chatbox" type="text" id="fname" name="fname" placeholder="Vui lòng nhập câu hỏi!">
+        <button id="send">Gửi</button>
+    
+    <script>
+        document.querySelectorAll('.question').forEach(function (item) {
+            item.addEventListener('click', function () {
+                document.getElementById('chatbox').value = item.innerText;
+            });
+        });
+        
+        document.getElementById('send').addEventListener('click', function () {
+            var chatbox = document.getElementById('chatbox');
+            var message = chatbox.value;
+            var questions = document.querySelector('ul');
+            if (message.trim() !== '') {
+                console.log('Đã gửi: ' + message);
+                chatbox.value = '';
+               
+                questions.style.display = 'none';
+                var cuschat = document.getElementById('cuschat');
+                var p = document.createElement('p');
+                p.textContent = message;
+                cuschat.appendChild(p);
+                chatbox.focus();
+            }
+        });
+        document.getElementById('chatbox').addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                // event.preventDefault(); 
+                document.getElementById('send').click(); 
+            }
+        });
+
+        
+    </script>
+    
+</body>
+</html>

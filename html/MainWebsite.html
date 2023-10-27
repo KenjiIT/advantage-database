@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <link rel="icon" href="/Image/icon.png">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.72.0">
+    <title>HUTECH</title>
+    <link rel="stylesheet" href="/css/MainWebsite.css">
+    <link rel="canonical" href="https://v5.getbootstrap.com/docs/5.0/examples/blog/">
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<!--Get your own code at fontawesome.com-->
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+        integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+        integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+        
+
+
+    <!-- Custom styles for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    
+</head>
+
+<body>
+
+    <div class="container">
+        <header class="blog-header py-3">
+            <div class="row flex-nowrap justify-content-between align-items-center">
+                <div class="col-4 pt-1" >
+                    <a href="/html/MainWebsite.html">
+                        <img class="link-secondary"src="/Image/LOGO_HUTECH.png" width="300px" >
+                    </a>
+                </div>
+                <div class="col-4 text-center">
+                    <a class="blog-header-logo text-light" href="/html/MainWebsite.html">HUTECH UNIVERSITY</a>
+                </div>
+                <div id="usernameDisplay"></div>
+                <button id="menuBtn">|||</button>
+                <div class="menu" id="menu">
+                    <ul>
+                        <li><a href="#">Thông tin người dùng</a></li>
+                        <li><a href="#">Lịch sử đặt hàng</a></li>
+                        <li><a href="#" id="logoutBtn">Đăng xuất</a></li>
+                    </ul>
+                </div>
+                
+                <script>
+                    // Lưu thông tin người dùng sau khi đăng nhập
+                    const loggedInUser = "JohnDoe"; // Thay thế bằng tên người dùng đã đăng nhập
+                    const usernameDisplay = document.getElementById("usernameDisplay");
+                    usernameDisplay.innerText = `Xin chào, ${loggedInUser}!`;
+            
+                    // Hiển thị hoặc ẩn menu khi click vào nút "|||"
+                    const menuBtn = document.getElementById("menuBtn");
+                    const menu = document.getElementById("menu");
+                    menuBtn.addEventListener("click", function() {
+                        if (menu.style.display === "block" || menu.style.display === "") {
+                            menu.style.display = "none";
+                        } else {
+                            menu.style.display = "block";
+                        }
+                    });
+            
+                    // Xử lý sự kiện Đăng xuất
+                    const logoutBtn = document.getElementById("logoutBtn");
+                    logoutBtn.addEventListener("click", function() {
+                        // Thực hiện đăng xuất (thông qua API hoặc xóa cookie/session)
+                        alert("Bạn đã đăng xuất!");
+                        window.location.href = "/login.html"; // Chuyển hướng đến trang đăng nhập
+                    });
+                </script>
+                
+                
+            </div>
+        </header>
+
+        <div class="nav-scroller py-1 mb-2">
+            <nav class="nav d-flex justify-content-between">
+                <a class="p-2" href="/html/MainWebsite.html">Trang Chủ</a>
+                <a class="p-2" href="/html/About.html">Giới thiệu</a>
+                <a class="p-2" href="https://www.hutech.edu.vn/tuyensinh">Tuyển Sinh</a>
+                <a class="p-2" href="https://www.hutech.edu.vn/daotao">Phòng - Ban</a>
+                <a class="p-2" href="https://www.hutech.edu.vn/khoacntt">Khoa</a>
+                <a class="p-2" href="https://www.hutech.edu.vn/e-hutech">Viện</a>
+                <a class="p-2" href="https://hoptacdn.hutech.edu.vn/">Trung Tâm</a>
+                <a class="p-2" href="https://www.hutech.edu.vn/quocte">Đào Tạo Quốc Tế</a>
+                <a class="p-2" href="https://erp1.hutech.edu.vn/#/admin/login/login">Nội Bộ</a>
+                <a class="p-2" href="https://lib.hutech.edu.vn/">Thư Viện</a>
+                <a class="p-2" href="/html/Comments.html">Góp Ý</a>
+                <a class="p-2" href="/html/GuestStatus.html">Liên Hệ</a>
+            </nav>
+        </div>
+
+        
+    
+    </div>  
+
+    <main class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <h3 class="pb-4 mb-4 font-italic border-bottom">
+                </h3>
+
+                <div class="blog-post">
+                    <h2 class="blog-post-title">TRƯỜNG ĐẠI HỌC CÔNG NGHỆ TP.HCM</br> 
+                        HUTECH UNIVERSITY</h2></br>
+                    <ul>
+                        <a class="addr" href="https://maps.app.goo.gl/59bEscorNPNHXXv36">
+                            <li>Saigon Campus: 475A Điện Biên Phủ, P.25, Q.Bình Thạnh, TP.HCM</li>
+                        </a><a class="addr" href="https://maps.app.goo.gl/cjnqhm5kBrH3ZEhQ7">
+                            <li>Ung Van Khiem Campus: 31/36 Ung Văn Khiêm, P.25, Q.Bình Thạnh, TP.HCM</li>
+                        </a><a class="addr" href="https://maps.app.goo.gl/QyLtVLcJymURwj156">
+                            <li>Thu Duc Campus: Khu Công nghệ cao TP.HCM, Xa lộ Hà Nội, P.Hiệp Phú, TP.Thủ Đức, TP.HCM</li>
+                        </a><a class="addr" href="https://maps.app.goo.gl/Q4MQJdKemfuEuRkYA">
+                            <li>Hitech Park Campus: Khu Công nghệ cao TP.HCM, Đường D1, P.Long Thạnh Mỹ, TP.Thủ Đức, TP.HCM</li>
+                        </a>
+                    </ul>
+                </div><!-- /.blog-post -->
+        </div><!-- /.row -->
+    </main><!-- /.container -->
+    <footer class="blog-footer">
+        <p>This website had built by 
+            <a class = "contact"href="https://www.facebook.com/mhuywithlove">Minh Huy</a> and 
+            <a class ="contact"href="https://www.facebook.com/profile.php?id=100006569745148">Kim Linh</a>.
+        </p>
+        <p>
+            <a class="back" href="#">Back to top</a>
+        </p>
+    </footer>
+
+
+
+</body>
+
+</html>

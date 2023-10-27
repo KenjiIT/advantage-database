@@ -1,0 +1,70 @@
+body {
+    font-family: Arial, sans-serif;
+    background-image: url("/Image/comtam.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+}
+.login-container {
+    width: 350px;
+    margin: auto;
+    margin-top: 2%;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.7); /* Tạo màu nền mờ cho form */
+    backdrop-filter: blur(5px); /* Áp dụng hiệu ứng mờ cho phần nền form */
+}
+.login-container h2 {
+    text-align: center;
+}
+.form-group {
+    padding: 10px;
+}
+.form-group label {
+    display: block;
+    font-weight: bold;
+}
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: transparent; /* Làm cho nền textbox trong suốt */
+}
+.form-group input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.form-group input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin: 0 auto; /* Đưa nút Login ra giữa */
+    display: block; /* Để margin: 0 auto; hoạt động */
+}
+#signup{
+    color:black;
+    text-decoration: none;
+    margin-bottom: 10px;
+    position: relative;
+}
+#signup:hover{
+    color: Red;
+}
+#signup:active{
+    color: blue
+}
+.cbox{
+    font-weight: bolder;
+    display: block;
+    color: red;
+}
