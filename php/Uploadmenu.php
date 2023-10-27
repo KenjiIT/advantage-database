@@ -23,6 +23,9 @@ if (isset($_SESSION['username'])) {
         <h1 id="usernameDisplay">Xin chào, <?php echo $loggedInUser; ?>!</h1>
         <button id="menuBtn">|||</button>
         <div class="menu" id="menu" style="display: none;">
+        <a href="/php/employmanage.php" class="textdecor">
+                <option>Quản lý nhân viên</option>
+            </a>
             <a href="/php/Uploadmenu.php" class="textdecor">
                 <option>Thêm món vào menu</option>
             </a>

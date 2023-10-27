@@ -3,10 +3,8 @@
 session_start();
 
 if (isset($_SESSION['username'])) {
-    $loggedInUser = $_SESSION['username'];
-    $savecid = $_SESSION['cid'];
-} else {
-    $loggedInUser = "Khách"; // Hoặc thay thế bằng giá trị mặc định
+    $username = $_SESSION['username'];
+    $cid = $_SESSION['cid'];
 }
 ?>
 <link rel="stylesheet" href="/css/MainWebsite.css">
@@ -21,7 +19,7 @@ if (isset($_SESSION['username'])) {
 
 <body>
     <div class="container">
-        <h1 id="usernameDisplay">Xin chào, <?php echo $loggedInUser; ?>!</h1>
+        <h1 id="usernameDisplay">Xin chào, <?php echo $username; ?>!</h1>
         <button id="menuBtn">|||</button>
         <div class="menu" id="menu" style="display: none;">
             <a href="#" class="textdecor">
@@ -53,7 +51,6 @@ if (isset($_SESSION['username'])) {
     <div class="menusize">
         <table>
             <tr>
-                <th>Menu</th>
                 <th>Tên món ăn</th>
                 <th>Nguyên liệu</th>
                 <th>Giá</th>
@@ -80,7 +77,6 @@ if (isset($_SESSION['username'])) {
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     echo '<tr>';
-                    echo '<td>' . $row["M_ID"] . '</td>';
                     echo '<td>' . $row["Name"] . '</td>';
                     echo '<td>' . $row["Ingrediant"] . '</td>';
                     echo '<td class="price">' . $row["Price"] . " VND" . '</td>';
@@ -119,7 +115,6 @@ if (isset($_SESSION['username'])) {
                 const price = parseFloat(priceElements[i].textContent);
                 const quantity = parseInt(quantityInputs[i].value);
                 total += price * quantity;
-                $sum = quantity;
             }
 
             document.getElementById('total').textContent = total.toFixed(0) + ' VND';
@@ -164,52 +159,45 @@ if (isset($_SESSION['username'])) {
     </script>
     <!-- ship -->
     <script>
-        
-    
-      <?php
+     <?php
 if (isset($_POST['submitOrder'])) {
-    $sql = "INSERT INTO ship (Price_Ship, Time_Delivery, Time_TO) VALUES (?, NOW(), DATE_ADD(NOW(), INTERVAL 1 HOUR)";
+
+    $sql = "INSERT INTO ship (Price_Ship, Time_Delivery, Time_TO) VALUES (?, NOW(), DATE_ADD(NOW(), INTERVAL 1 HOUR))";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $Price);
 
     if ($stmt->execute()) {
-        $sid = $conn->insert_id;
+        $sql = "SELECT LAST_INSERT_ID() as S_ID"; // Get the last inserted ID
+        $result = $conn->query($sql);
+        $row = $result->fetch_assoc();
+        $sid = $row['S_ID'];
+
+        // Store $sid in the session
         session_start();
         $_SESSION['sid'] = $sid;
+
         $Status = "Pending"; // Change this value as needed
         $Sid = $_SESSION['sid'];
-        $Cid = $_SESSION['cid'];
+        $Cid = $_SESSION['cid']; // Retrieve the C_ID from the session
 
         $sql = "INSERT INTO Orderr (Date, Status, C_ID, S_ID) VALUES (NOW(), ?, ?, ?)";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("sss", $Status, $Cid, $Sid);
 
         if ($stmt->execute()) {
-            $Oid = $conn->insert_id;
-            session_start();
-            $_SESSION['Oid'] = $Oid;
-            $Oid = $_SESSION['Oid'];
-            $sql = "INSERT INTO Order_detail (TotalAmount, O_ID) VALUES (?, ?)";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("ss", $sum, $Oid);
-
-            if ($stmt->execute()) {
-                echo '<script>alert("Successfully Order.");</script>';
-            } else {
-                echo '<script>alert("Failed to insert into Order_detail.");</script>';
-            }
+            echo 'alert("Successfully Order.");';
         } else {
-            echo '<script>alert("Failed to insert into Orderr.");</script>';
+            echo 'alert("Failed Order");';
         }
     } else {
-        echo '<script>alert("Failed to insert into ship.");</script>';
+        echo 'alert("Failed Order");';
     }
 
     $stmt->close();
     $conn->close();
 }
-
 ?>
+
 
 
     </script>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-<head>  
+<head>
     <meta charset="UTF-8">
     <title>Tư vấn sinh viên</title>
     <link rel="stylesheet" href="/css/Login.css">
@@ -40,51 +40,46 @@
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
-
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Nhận dữ liệu từ biểu mẫu đăng nhập
-            $username = $_POST["username"];
-            $password = $_POST["password"];
-            $stmt = $conn->prepare("SELECT Username FROM customer WHERE username = ?");
-            $stmt->bind_param("s", $username,);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            if ($result->num_rows == 1) {
-            $stmt = $conn->prepare("SELECT Username,password FROM customer WHERE username = ? AND password = ?");
-            $stmt->bind_param("ss", $username, $password);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            if ($result->num_rows == 1) {
-                $stmt = $conn->prepare("SELECT C_ID FROM customer WHERE username = ? ");
-                session_start(); // Bắt đầu hoặc sử dụng session đã tồn tại
-                $row = $result->fetch_assoc();
-                $cid = $row['C_ID'];
-                $_SESSION['username'] = $username; 
-                $_SESSION['cid'] = $cid;
-                header("Location: /php/homepage.php");
-                exit();
-            }
+           // Nhận dữ liệu từ biểu mẫu đăng nhập
+    $username = $_POST["username"];
+    $password = $_POST["password"];
+
+    $stmt = $conn->prepare("SELECT C_ID, Name FROM employee.customer WHERE username = ? AND password = ?");
+    $stmt->bind_param("ss", $username, $password);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows == 1) {
+        $row = $result->fetch_assoc();
+        $cid = $row['C_ID'];
+
+        // Kiểm tra mật khẩu ở đây nếu cần
+        session_start(); // Bắt đầu hoặc sử dụng session đã tồn tại
+        $_SESSION['cid'] = $cid;
+        $_SESSION['username'] = $username;
+        header("Location: /php/homepage.php");
+        exit();
+    }
             $stmt = $conn->prepare("SELECT ManageAccount,password FROM employee WHERE ManageAccount = ? AND password = ?");
-            $stmt->bind_param("ss", $username, $password);
-            $stmt->execute();
-            $result = $stmt->get_result();    
-            if ($result->num_rows == 1) {
-                $row = $result->fetch_assoc();
-                $cid = $row['C_ID'];
-                            session_start(); // Bắt đầu hoặc sử dụng session đã tồn tại
-                            $_SESSION['cid'] = $cid;
-                header("Location: /php/AdminPage.php");
-                exit();
-            } else {
-                echo 'alert("Tên người dùng hoặc mật khẩu không đúng.");';
-            }
-        } else {
-            echo 'alert("Username không tồn tại!!!");';
-        }
+                $stmt->bind_param("ss", $username, $password);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                if ($result->num_rows == 1) {
+                    session_start(); // Bắt đầu hoặc sử dụng session đã tồn tại
+                    $row = $result->fetch_assoc();
+                    $cid = $row['C_ID'];
+                    $_SESSION['username'] = $username;
+                    $_SESSION['cid'] = $cid;
+                    header("Location: /php/AdminPage.php");
+                    exit();
+                } else {
+                    echo 'alert("Tên người dùng hoặc mật khẩu không đúng.");';
+                }
         }
         $conn->close();
         ?>
     </script>
 </body>
-
 </html>

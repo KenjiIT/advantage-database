@@ -4,7 +4,6 @@ session_start();
 
 if (isset($_SESSION['username'])) {
     $loggedInUser = $_SESSION['username'];
-    $cid = $_SESSION['cid'];
 } else {
     $loggedInUser = "Khách"; // Hoặc thay thế bằng giá trị mặc định
 }
@@ -36,7 +35,47 @@ if (isset($_SESSION['username'])) {
             </a>
             </div>
         </div>
+        <div class="menusize">
+        <table>
+            <tr>
+                <th>Employee ID</th>
+                <th>Name</th>
+                <th>Manage Account</th>
+                <th>Password</th>
+            </tr>
+            <?php
+            // Kết nối với cơ sở dữ liệu SQL
+            $servername = "localhost";
+            $username = "root";
+            $password = "1234";
+            $dbname = "employee";
 
+            $conn = new mysqli($servername, $username, $password, $dbname);
+
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
+
+            // Thực hiện truy vấn SQL để lấy dữ liệu từ bảng menu
+            $sql = "SELECT * FROM employee";
+            $result = $conn->query($sql);
+
+            // Kiểm tra và hiển thị dữ liệu nếu có
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo '<tr>';
+                    echo '<td>' . $row["E_ID"] . '</td>';
+                    echo '<td>' . $row["Name"] . '</td>';
+                    echo '<td>' . $row["ManageAccount"] . '</td>';
+                    echo '<td>' . $row["Password"] . '</td>';
+                    echo '</tr>';
+                }
+            } else {
+                echo '<tr><td colspan="4">Không có nhân viên nào trong CSDL.</td></tr>';
+            }
+            ?>
+        </table>
+    </div>
         <script>
         // Hiển thị hoặc ẩn menu khi click vào nút "|||"
         const menuBtn = document.getElementById("menuBtn");
