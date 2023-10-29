@@ -87,6 +87,10 @@ if (isset($_SESSION['username'])) {
                     echo '</td>';
                     echo '</tr>';
                     $Price = 30000;
+                    // $date = date('Y-m-d H:i:s');
+                    // $Cid = $_SESSION['cid'];
+                    // $status = "Đang chờ duyệt";
+                    // $totalamount += $row["Price"];
                 }
             } else {
                 echo '<tr><td colspan="4">Không có món ăn nào trong menu.</td></tr>';
@@ -99,12 +103,13 @@ if (isset($_SESSION['username'])) {
         <label>Tổng tiền: <span id="total">0 VND</span></label>
     </div>
 
-    <form class="totalamount" method="post" onsubmit="return validateForm()">
+     <form class="totalamount" method="post" onsubmit="return confirmPayment()">
         <!-- Include your menu table here -->
-        <button id="okk" type="submit" name="submitOrder">Thanh toán</button>
+        <button id="okk" type="submit" name="submitOrder">Đặt hàng</button>
     </form>
     <!-- Tính giá -->
     <script>
+        
         function calculateTotal() {
             const priceElements = document.querySelectorAll('.price');
             const quantityInputs = document.querySelectorAll('input.number');
@@ -156,13 +161,32 @@ if (isset($_SESSION['username'])) {
             // If the validation passes, the form will be submitted
             return true;
         }
+        function confirmPayment() {
+            if($total!=0)
+            {
+                // Show a confirmation dialog
+                const confirmation = confirm("Bạn có chắc chắn muốn đặt hàng?");
+
+                if (confirmation) {
+                    // User confirmed, form will be submitted
+                    return true;
+                } else {
+                    // User canceled, form submission will be prevented
+                    return false;
+                }
+            }
+            else
+            {
+                alert ('Vui lòng chọn món!')
+            }
+        }
     </script>
     <!-- ship -->
     <script>
      <?php
 if (isset($_POST['submitOrder'])) {
 
-    $sql = "INSERT INTO ship (Price_Ship, Time_Delivery, Time_TO) VALUES (?, NOW(), DATE_ADD(NOW(), INTERVAL 1 HOUR))";
+    $sql = "INSERT INTO ship (Price_Ship, Time_Delivery, Time_TO,status) VALUES (?, NULL,NULL,'đang giao')";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $Price);
 
@@ -176,19 +200,21 @@ if (isset($_POST['submitOrder'])) {
         session_start();
         $_SESSION['sid'] = $sid;
 
-        $Status = "Pending"; // Change this value as needed
+         // Change this value as needed
         $Sid = $_SESSION['sid'];
         $Cid = $_SESSION['cid']; // Retrieve the C_ID from the session
 
-        $sql = "INSERT INTO Orderr (Date, Status, C_ID, S_ID) VALUES (NOW(), ?, ?, ?)";
+        $sql = "INSERT INTO Orderr (Date, C_ID, S_ID) VALUES (NOW(), ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sss", $Status, $Cid, $Sid);
-
+        $stmt->bind_param("ss", $Cid, $Sid);
+        header("Location: /php/payment.php");
         if ($stmt->execute()) {
             echo 'alert("Successfully Order.");';
+            
         } else {
             echo 'alert("Failed Order");';
         }
+        
     } else {
         echo 'alert("Failed Order");';
     }

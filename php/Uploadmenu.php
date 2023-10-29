@@ -29,7 +29,7 @@ if (isset($_SESSION['username'])) {
             <a href="/php/Uploadmenu.php" class="textdecor">
                 <option>Thêm món vào menu</option>
             </a>
-            <a href="#" class="textdecor">
+            <a href="php/History.php" class="textdecor">
                 <option>Lịch sử khách đặt hàng</option>
             </a>
             <a href="/php/Account.php" class="textdecor">
@@ -56,6 +56,7 @@ if (isset($_SESSION['username'])) {
 
         </form>
     </div>
+    
 
     <script>
         // Hiển thị hoặc ẩn menu khi click vào nút "|||"
@@ -67,6 +68,7 @@ if (isset($_SESSION['username'])) {
             } else {
                 menu.style.display = "block";
             }
+        
         });
     </script>
     <script>
@@ -113,6 +115,74 @@ if (isset($_SESSION['username'])) {
         $conn->close();
         ?>
     </script>
+    <div class="menusize">
+        <table>
+            <tr>
+                <th>Tên món ăn</th>
+                <th>Nguyên liệu</th>
+                <th>Giá</th>
+                
+            </tr>
+            <?php
+            // Kết nối với cơ sở dữ liệu SQL
+            $servername = "localhost";
+            $username = "root";
+            $password = "1234";
+            $dbname = "employee";
+
+            $conn = new mysqli($servername, $username, $password, $dbname);
+
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
+
+            // Thực hiện truy vấn SQL để lấy dữ liệu từ bảng menu
+            $sql = "SELECT * FROM menu";
+            $result = $conn->query($sql);
+
+            // Kiểm tra và hiển thị dữ liệu nếu có
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+
+                    echo '<tr>';
+                    echo '<td>' . $row["Name"] . '</td>';
+                    echo '<td>' . $row["Ingrediant"] . '</td>';
+                    echo '<td class="price">' . $row["Price"] . " VND" . '</td>';
+                    echo '<td>';
+                    echo '<button onclick="deleteItem(\'' . $row["Name"] . '\')">Xóa</button>';
+                    echo '</td>';
+                    echo '</tr>';
+                    $Price = 30000;
+                }
+            } else {
+                echo '<tr><td colspan="4">Không có món ăn nào trong menu.</td></tr>';
+            }
+            ?>
+        </table>
+        <script>
+    function deleteItem(name) {
+        if (confirm("Bạn có chắc chắn muốn xóa món này?")) {
+            // Gửi yêu cầu xóa món ăn bằng Ajax
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    if (this.responseText === "success") {
+                        alert("Xóa món thành công!");
+                        // Cập nhật trang web hoặc làm bất kỳ điều gì bạn muốn ở đây
+                        location.reload();
+                    } else {
+                        alert("Xóa món thất bại!");
+                    }
+                }
+            };
+            xhttp.open("GET", "delete_item.php?name=" + name, true);
+            xhttp.send();
+        }
+    }
+</script>
+
+        </script>
+    </div>
 </body>
 
 </html>

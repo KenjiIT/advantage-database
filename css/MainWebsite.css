@@ -370,4 +370,14 @@ body {
         .dist{
             text-align: center;
         }
+        .pay{
+            padding: 10px;
+            left: 40%;
+            position: absolute;
+            margin-bottom: 20px;
+        }
+        .mgp{
+            display: block;
+            margin-top: 10px;
+        }
         

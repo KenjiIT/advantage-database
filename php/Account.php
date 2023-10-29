@@ -46,7 +46,7 @@
     $username = $_POST["username"];
     $password = $_POST["password"];
 
-    $stmt = $conn->prepare("SELECT C_ID, Name FROM employee.customer WHERE username = ? AND password = ?");
+    $stmt = $conn->prepare("SELECT Username, C_ID FROM customer WHERE username = ? AND password = ?");
     $stmt->bind_param("ss", $username, $password);
     $stmt->execute();
     $result = $stmt->get_result();

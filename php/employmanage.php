@@ -27,7 +27,7 @@ if (isset($_SESSION['username'])) {
             <a href="/php/Uploadmenu.php" class="textdecor">
                 <option>Thêm món vào menu</option>
             </a>
-            <a href="#" class="textdecor">
+            <a href="php/History.php" class="textdecor">
                 <option>Lịch sử khách đặt hàng</option>
             </a>
             <a href="/php/Account.php" class="textdecor">
